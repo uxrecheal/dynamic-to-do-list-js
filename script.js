@@ -14,7 +14,8 @@ function DOMContent() {
 }
 
 function addTask() {
-  const taskText = document.getElementById("task-input").value.trim();
+  const taskInput = document.getElementById("task-input");
+  const taskText = taskInput.value.trim();
   const taskList = document.getElementById("task-list");
 
   if (taskText == "") {
