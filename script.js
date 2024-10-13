@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", DOMContent);
 
-let tasks = []
+let tasks = [];
 
-function DOMContent() {
+function loadTasks() {
   const addButton = document.getElementById("add-task-btn");
   const taskInput = document.getElementById("task-input");
   const taskList = document.getElementById("task-list");
 
-  const rawTask = localStorage.getItem("tasks") || '[]'
-   tasks = JSON.parse(rawTask);
+  const rawTask = localStorage.getItem("tasks") || "[]";
+  tasks = JSON.parse(rawTask);
 
-  tasks.forEach((element,index) => {
+  tasks.forEach((element, index) => {
     const li = document.createElement("li");
     li.textContent = element;
     const removeButton = document.createElement("button");
@@ -19,14 +19,22 @@ function DOMContent() {
     removeButton.addEventListener("click", (event) => {
       //remove logic
       taskList.removeChild(li);
-      tasks = tasks.filter((v,i)=>i!=index);
+      tasks = tasks.filter((v, i) => i != index);
       const rawTask = JSON.stringify(tasks);
-      localStorage.setItem("tasks",rawTask)
+      localStorage.setItem("tasks", rawTask);
     });
-  
+
     li.appendChild(removeButton);
     taskList.appendChild(li);
   });
+}
+
+function DOMContent() {
+  const addButton = document.getElementById("add-task-btn");
+  const taskInput = document.getElementById("task-input");
+  const taskList = document.getElementById("task-list");
+
+  loadTasks();
 
   addButton.addEventListener("click", addTask);
   taskInput.addEventListener("keypress", (event) => {
@@ -53,14 +61,14 @@ function addTask() {
   removeButton.classList.add("remove-btn");
   tasks.push(taskText);
   const rawTask = JSON.stringify(tasks);
-  localStorage.setItem("tasks",rawTask)
+  localStorage.setItem("tasks", rawTask);
   const index = tasks.length - 1;
   removeButton.addEventListener("click", (event) => {
     //remove logic
     taskList.removeChild(li);
-    tasks = tasks.filter((v,i)=>i!=index);
+    tasks = tasks.filter((v, i) => i != index);
     const rawTask = JSON.stringify(tasks);
-    localStorage.setItem("tasks",rawTask)
+    localStorage.setItem("tasks", rawTask);
   });
 
   li.appendChild(removeButton);
